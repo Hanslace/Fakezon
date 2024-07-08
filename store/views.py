@@ -14,9 +14,9 @@ from .decoraters import *
 	
 
 	
-def home(request):
-
-	products = Product.objects.all()
+def home(request , products = None):
+	if products == None:
+		products = Product.objects.all()
 	query = request.GET.get('q')
 	if query:
 		products = products.filter(name__icontains=query)
@@ -32,7 +32,7 @@ def about(request):
     return render(request , 'about.html' , {})
 
 
-
+@unauthenticated_user
 def login_user(request):
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
@@ -52,7 +52,7 @@ def login_user(request):
 		form = LoginForm()
 	return render(request, 'login.html', {'form': form})
 
-
+@authenticated_user
 def logout_user(request):
 	logout(request)
 	messages.success(request, ("You have been logged out...Thanks for stopping by..."))
@@ -69,12 +69,13 @@ def product(request,pk):
 		in_cart = False
 	return render(request, 'product.html', {'product':product ,'in_cart' :in_cart})
 
-def category(request, foo):
 
+def category(request, foo):
 	category = Category.objects.get(categoryName=foo)
 	products = Product.objects.filter(category=category)
-	return render(request, 'home.html', {'products':products})
+	return redirect('home.html', products)
 
+@authenticated_user
 def update_info(request):
 	if request.user.is_authenticated:
 		# Get Current User
@@ -93,7 +94,7 @@ def update_info(request):
 		messages.success(request, "You Must Be Logged In To Access That Page!!")
 		return redirect('home')
 	
-
+@authenticated_user
 def update_user(request):
 	if request.user.is_authenticated:
 		current_user = CustomUser.objects.get(id=request.user.id)
@@ -110,7 +111,7 @@ def update_user(request):
 		messages.success(request, "You Must Be Logged In To Access That Page!!")
 		return redirect('home')
 	
-	
+@authenticated_user
 def update_password(request):
 	if request.user.is_authenticated:
 		current_user = request.user
@@ -133,7 +134,8 @@ def update_password(request):
 	else:
 		messages.success(request, "You Must Be Logged In To View That Page...")
 		return redirect('home')
-	
+
+@unauthenticated_user
 def customer_register(request):
 
 	if request.method == 'POST':
@@ -148,7 +150,7 @@ def customer_register(request):
 	return render(request, 'register.html', {'form': form})
 	
 
-
+@unauthenticated_user
 def seller_register(request):
 	if request.method == 'POST':
 				form = SellerRegistrationForm(request.POST)
@@ -182,6 +184,7 @@ def seller_home(request):
 	seller = Profile.objects.get(user = request.user )
 	return render(request, 'seller_home.html' , {'seller' : seller , 'products' : products})
 
+@authenticated_seller
 def create_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES ,user=request.user)
@@ -191,7 +194,7 @@ def create_product(request):
     else:
         form = ProductForm(user=request.user)
     return render(request, 'create_product.html', {'form': form})
-
+@authenticated_seller
 def delete_product(request, pk):
 
 	product = Product.objects.get(productID=pk)
@@ -201,6 +204,7 @@ def delete_product(request, pk):
 	messages.success(request, (f"Product: {name} has been deleted."))
 	return render(request, 'seller_home.html', {'products':products})
 
+@authenticated_seller
 def update_product(request, pk ):
 
 
@@ -215,35 +219,40 @@ def update_product(request, pk ):
 		return redirect('seller_home')
 	return render(request, "update_product.html", {'product_form':product_form , 'product':product})
 
-
+@authenticated_customer
 def wishlist(request):
 
 	products = Product.objects.filter(wishlisted=request.user.wishlist)
 	return render(request, 'wishlist.html', {'products':products})
 
+@authenticated_customer
 def remove_from_wishlist(request, pk):
 	product = Product.objects.get(productID=pk)
 	product.wishlisted.remove(request.user.wishlist)
 	messages.success(request, (f"Product: {product.name} has been removed from wishlist."))
 	return redirect('product' , pk)
-	
+
+@authenticated_customer
 def add_to_wishlist(request , pk):
 	product = Product.objects.get(productID=pk)
 	product.wishlisted.add(request.user.wishlist)
 	messages.success(request, (f"Product: {product.name} has been Added to wishlist."))
 	return redirect('product' , pk)
 
+@authenticated_customer
 def cart(request):
 	cartitems = CartItem.objects.filter(cart = request.user.cart)
 	total_cost = sum( item.quantity * item.product.price for item in cartitems)
 	products = CartItem.objects.filter(cart = request.user.cart)
 	return render(request, 'cart.html', {'products':products , 'total_cost' : total_cost})
 
+@authenticated_customer
 def orders(request):
 
 	products = Order.objects.filter(customer = request.user)
 	return render(request, 'orders.html', {'products':products})
 
+@authenticated_customer
 def add_to_cart(request , pk):
 
 	product = Product.objects.get(productID=pk)
@@ -261,7 +270,7 @@ def add_to_cart(request , pk):
 
 
 		
-
+@authenticated_customer
 def remove_from_cart(request , pk):
 	product = Product.objects.get(productID=pk)
 
@@ -281,6 +290,7 @@ def cartitem(request,pk):
 		in_cart = False
 	return render(request, 'cartitem.html', {'product':item ,'in_cart' :in_cart})
 
+@authenticated_customer
 def checkout(request):
 	items = CartItem.objects.filter(cart = request.user.cart)
 	if request.method == 'POST':
@@ -299,7 +309,7 @@ def checkout(request):
 		form = OrderForm()
 	return render(request, 'orderinfo.html', {'form': form})
 
-@authenticated_user
+@authenticated_customer
 def order(request,pk):
 	order = Order.objects.get(orderID=pk)
 

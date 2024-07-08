@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django import forms
-from .models import   Profile , CustomUser , Product , CartItem
+from .models import   Profile , CustomUser , Product , CartItem , zero_check
 
 
 class UserInfoForm(forms.ModelForm):
@@ -126,11 +126,17 @@ class UpdateUserForm(UserChangeForm):
 		self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
+    username = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}), required=False)
     password = forms.CharField(widget=forms.PasswordInput)
 
 class ProductForm(forms.ModelForm):
-	image = forms.ImageField(label="" , required=False, )
+	image = forms.ImageField(label="" , required=True)
+
+	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=False)
+	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
+	price = forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
+	category= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=False)
+	stock= forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
 	
 
 	class Meta:
@@ -151,18 +157,17 @@ class ProductForm(forms.ModelForm):
 	
 class UpdateProductForm(forms.ModelForm):
 	image = forms.ImageField(label="" , required=False, )
+	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=False)
+	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
+	price = forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
+	category= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=False)
+	stock= forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
+
 
 	class Meta:
 		model = Product
 		fields = ['name', 'description', 'price' , 'category' , 'image' , 'stock']
 
-		
-class UpdateProductForm(forms.ModelForm):
-	image = forms.ImageField(label="" , required=False, )
-
-	class Meta:
-		model = Product
-		fields = ['name', 'description', 'price' , 'category' , 'image' , 'stock']
 
 class CartForm(forms.ModelForm):
 	quantity = forms.IntegerField(label=''  , required=True,widget=forms.NumberInput(attrs={'placeholder':'Quantity'}))
@@ -187,6 +192,6 @@ class CartForm(forms.ModelForm):
 		return cartitem
 	
 class OrderForm(forms.Form):
-	paymentMethod = forms.CharField()
-	address = forms.CharField()
+	paymentMethod = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Payment Method'}))
+	address = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Delivery Address'}))
 	
