@@ -126,17 +126,18 @@ class UpdateUserForm(UserChangeForm):
 		self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}), required=False)
+    username = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}), required=True)
     password = forms.CharField(widget=forms.PasswordInput)
 
 class ProductForm(forms.ModelForm):
 	image = forms.ImageField(label="" , required=True)
 
-	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=False)
+	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=True)
 	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
-	price = forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
-	category= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=False)
-	stock= forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
+	price = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Price'}), required=True)
+	
+	category= forms.CharField(label="", max_length=100, widget=forms.ChoiceField(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
+	stock= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Stock'}), required=False)
 	
 
 	class Meta:
@@ -156,12 +157,13 @@ class ProductForm(forms.ModelForm):
 		return product
 	
 class UpdateProductForm(forms.ModelForm):
-	image = forms.ImageField(label="" , required=False, )
-	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=False)
+	image = forms.ImageField(label="" , required=True, )
+	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=True)
 	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
-	price = forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
-	category= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=False)
-	stock= forms.IntegerField(label='' ,validators=[zero_check] , widget=forms.NumberInput)
+	price = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Price'}), required=True)
+	
+	category= forms.CharField(label="", max_length=100, widget=forms.ChoiceField(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
+	stock= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Stock'}), required=False)
 
 
 	class Meta:
@@ -192,6 +194,6 @@ class CartForm(forms.ModelForm):
 		return cartitem
 	
 class OrderForm(forms.Form):
-	paymentMethod = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Payment Method'}))
-	address = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Delivery Address'}))
+	paymentMethod = forms.CharField(label="",required=True, max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Payment Method'}))
+	address = forms.CharField(label="",required=True, max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Delivery Address'}))
 	
