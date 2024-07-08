@@ -6,7 +6,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-#gna$ue8!*q8+n!@=0&&lnqo24ipe__mk5c-tbutdbic_&7zu5
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['fakezon-production.up.railway.app' ,'https://fakezon-production.up.railway.app']
 CSRF_TRUSTED_ORIGINS =  ['https://fakezon-production.up.railway.app']
 
 AUTH_USER_MODEL = 'store.CustomUser'
@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD':os.environ[('DB_PASSWORD_YO')] ,
+        'PASSWORD':DB_PASSWORD_YO ,
         'HOST':'monorail.proxy.rlwy.net',
         'PORT' :'26465',
     }
@@ -120,14 +120,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR , 'static')]
+STATIC_URL = 'static/'
+STATICFILES_DIRS = ['static']
 
 # White noise static stuff
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR , 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 
 # Default primary key field type
