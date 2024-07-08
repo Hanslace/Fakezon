@@ -136,7 +136,7 @@ class ProductForm(forms.ModelForm):
 	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
 	price = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Price'}), required=True)
 	
-	category= forms.CharField(label="", max_length=100, widget=forms.ChoiceField(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
+	category= forms.ChoiceField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
 	stock= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Stock'}), required=False)
 	
 
@@ -162,7 +162,7 @@ class UpdateProductForm(forms.ModelForm):
 	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
 	price = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Price'}), required=True)
 	
-	category= forms.CharField(label="", max_length=100, widget=forms.ChoiceField(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
+	category= forms.ChoiceField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
 	stock= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Stock'}), required=False)
 
 
