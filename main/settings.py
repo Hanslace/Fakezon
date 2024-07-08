@@ -14,9 +14,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#gna$ue8!*q8+n!@=0&&lnqo24ipe__mk5c-tbutdbic_&7zu5'
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost' , 'fakezon-production.up.railway.app', 'https://fakezon-production.up.railway.app']
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS =  ['https://fakezon-production.up.railway.app']
 
 AUTH_USER_MODEL = 'store.CustomUser'
@@ -121,11 +121,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ['static/']
+STATICFILES_DIRS = [os.path.join(BASE_DIR , 'static')]
 
 # White noise static stuff
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR , 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
