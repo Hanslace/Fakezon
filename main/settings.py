@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#gna$ue8!*q8+n!@=0&&lnqo24ipe__mk5c-tbutdbic_&7zu5'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost' , 'fakezon-production.up.railway.app', 'https://fakezon-production.up.railway.app']
 CSRF_TRUSTED_ORIGINS =  ['https://fakezon-production.up.railway.app']
