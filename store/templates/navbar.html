@@ -1,0 +1,132 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-light py-3 ">
+    <div class="container-fluid" >
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'assets/favicon.ico' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            Fakezon
+          </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                Categories
+            </a>
+            <ul class="dropdown-menu">
+                {% for category in categories %}
+                <li><a class="dropdown-item" href="{% url 'category' category.categoryName %}">{{ category }}</a></li>
+                {% endfor %}
+            </ul>
+            </li>
+
+            <form method="GET" class = "d-flex"{% if user.is_authenticated %}{% if user.is_customer %}action="{% url 'customer_home' %}" {% elif user.is_seller %}action="{% url 'seller_home' %}" {% elif user.is_admin %}action="{% url 'home' %}"{% endif %}{% else %}action="{% url 'home' %}"{% endif %}>
+              <input type="text" name="q" placeholder="Search products...">
+              <button type="submit">Search</button>
+          </form>
+
+            
+          </li>
+        </ul>
+ 
+        
+      </div>
+      {% if user.is_authenticated %}
+        {% if user.is_customer %}
+      <div class="d-flex flex-row-reverse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Account
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'update_user' %}">{{ user.username }}</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a></li>
+          <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+          <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+        <a href="{% url 'cart' %}" style="color: inherit;" ><li class="btn btn-outline-dark"><i class="bi-cart-fill me-1"></i>
+          Cart
+<span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart.Orders }}
+
+</span></li></a>
+
+
+
+        
+    </ul>
+      </div>
+      {% elif user.is_seller %}
+ 
+      <div class="d-flex flex-row-reverse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'create_product' %}">Create product</a>
+          
+        </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Account
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'update_user' %}">{{ user.username }}</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+        
+
+
+        
+    </ul>
+      </div>
+      {% elif user.is_superuser %}
+      <div class="d-flex flex-row-reverse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
+              
+            </li>
+
+
+        
+    </ul>
+      </div>
+      {% endif %}
+      {% else %}
+
+
+      <div class="d-flex flex-row_reverse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a>
+          
+        </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Register
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'customer_register' %}">As customer</a></li>
+              <li><a class="dropdown-item" href="{% url 'seller_register' %}">As seller</a></li>
+        </ul>
+        
+        
+
+        
+    </ul>
+      </div>
+      
+
+            {% endif %}
+    </div>
+
+  </nav>
+
+
+

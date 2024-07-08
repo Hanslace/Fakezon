@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Header-->
+<header class="bg-dark py-1">
+  <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Product Overview</h1>
+      </div>
+  </div>
+</header>
+
+<div class="container">
+<br/>
+
+
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <center>
+        <h5 class="card-title">{{ product.name }}</h5>
+        <br/>
+        <p class="card-text justified">{{ product.description }}</p>
+        
+        
+            ${{ product.price }}
+            
+            <br/><br/>
+<div class="row justify-content-center">
+    <div class="col-md-2">Quantity:</div>
+                <div class="col-md-2">
+                <select class="form-select form-select-sm" id="qty-cart">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                </div>
+            </div>
+            <br/><br/>
+            {% if user.is_authenticated %}
+            {% if user.is_customer or user.is_admin %}
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center"><a class="btn btn-outline-dark mt-auto" {% if user.wishlist in product.wishlisted.all  %} href="{% url 'remove_from_wishlist' product.productID %}"  {% else %} href="{% url 'add_to_wishlist' product.productID %}" {% endif %}>{% if user.wishlist in product.wishlisted.all  %}Remove from wishlist{% else %} Add to wishlist{% endif %}</a></div>
+                                      </div>
+                                      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" {% if in_cart  %} href="{% url 'remove_from_cart' product.productID %}"  {% else %} href="{% url 'add_to_cart' product.productID %}" {% endif %}>{% if in_cart  %}Remove from cart{% else %} Add to cart{% endif %}</a></div>
+                                                                </div>
+                                                           
+            {% elif user.is_seller %}
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'update_product' product.productID %}">Update product</a></div>
+      </div>
+      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'delete_product' product.productID %}">Delete Product</a></div>
+                                </div>
+          {% endif %}
+          {% endif %}
+
+    </center>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+        	
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+{% endblock %}

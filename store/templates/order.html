@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Header-->
+<header class="bg-dark py-1">
+  <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Cartitem Overview</h1>
+      </div>
+  </div>
+</header>
+
+<div class="container">
+<br/>
+{% with product.quantity as quantity %}
+{% with product.product as product %}
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <center>
+        <h5 class="card-title">{{ product.name }}</h5>
+        <br/>
+        <p class="card-text justified">{{ product.description }}</p>
+        
+        
+            ${{ product.price }}
+            
+            <br/><br/>
+            Quantity:{{ quantity }}
+            <br/><br/>
+
+
+    </center>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+        	
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+{% endwith %}
+{% endwith %}
+{% endblock %}
