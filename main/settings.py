@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-#gna$ue8!*q8+n!@=0&&lnqo24ipe__mk5c-tbutdbic_&7zu5
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost' , 'fakezon-production.up.railway.app', 'https://fakezon-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS =  ['localhost' , 'fakezon-production.up.railway.app', 'https://fakezon-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS =  ['https://fakezon-production.up.railway.app']
 
 AUTH_USER_MODEL = 'store.CustomUser'
 
