@@ -133,11 +133,20 @@ class ProductForm(forms.ModelForm):
 	image = forms.ImageField(label="" , required=True)
 
 	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=True)
-	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
-	price = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Price'}), required=True)
-	
-	category= forms.ChoiceField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
-	stock= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Stock'}), required=False)
+	description= forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
+	category= forms.ChoiceField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
+	stock = forms.IntegerField(
+        label='',
+		required=	False,
+        widget=forms.NumberInput(attrs={'min': '1', 'max': '100' , 'class':'form-control', 'placeholder':'Stock'})
+    )
+	price = forms.DecimalField(
+		label='',
+		required = True,
+		max_digits=6,
+		decimal_places=2,
+		widget=forms.NumberInput(attrs={'step': '0.01', 'class':'form-control', 'placeholder':'Price'})
+	)
 	
 
 	class Meta:
@@ -159,12 +168,21 @@ class ProductForm(forms.ModelForm):
 class UpdateProductForm(forms.ModelForm):
 	image = forms.ImageField(label="" , required=True, )
 	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=True)
-	description= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
-	price = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Price'}), required=True)
+	description= forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
 	
-	category= forms.ChoiceField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
-	stock= forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Stock'}), required=False)
-
+	category= forms.ChoiceField(label="",  widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Category'}), required=True)
+	stock = forms.IntegerField(
+        label='',
+		required=	False,
+        widget=forms.NumberInput(attrs={'min': '1', 'max': '100' , 'class':'form-control', 'placeholder':'Stock'})
+    )
+	price = forms.DecimalField(
+		label='',
+		required = True,
+		max_digits=6,
+		decimal_places=2,
+		widget=forms.NumberInput(attrs={'step': '0.01', 'class':'form-control', 'placeholder':'Price'})
+	)
 
 	class Meta:
 		model = Product
