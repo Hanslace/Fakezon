@@ -97,6 +97,7 @@ class Order(models.Model):
         max_length=50,
         choices=PAYMENT_METHOD_CHOICES,
         default='Credit Card',
+        
     )
     quantity = models.PositiveIntegerField(default = 1 )
 
