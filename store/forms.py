@@ -209,6 +209,10 @@ class CartForm(forms.ModelForm):
 		return cartitem
 	
 class OrderForm(forms.Form):
-	paymentMethod = forms.CharField(label="",required=True, max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Payment Method'}))
+	paymentMethod = forms.ChoiceField(label="",required=True,  widget=forms.Select(attrs={'class':'form-control', 'placeholder':'Payment Method'}) , choices = [
+        ('Credit Card', 'Credit Card'),
+        ( 'Debit Card' ,'Debit Card' ),
+        ('Cash', 'Cash'),
+    ])
 	address = forms.CharField(label="",required=True, max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Delivery Address'}))
 	

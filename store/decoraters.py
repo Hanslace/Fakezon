@@ -15,10 +15,10 @@ def authenticated_user(view_func):
 def unauthenticated_user(view_func):
     def wrapper_func(request , *args, **kwargs):
         if request.user.is_authenticated:
-            
+            messages.success(request, ("You to be logged out to see this !!"))
             return redirect('home')
         else:
-            messages.success(request, ("You to be logged out to see this !!"))
+            
             return view_func(request , *args , **kwargs)
     return wrapper_func
 
