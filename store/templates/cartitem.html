@@ -11,8 +11,9 @@
 
 <div class="container">
 <br/>
-{% with product.quantity as quantity %}
-{% with product.product as product %}
+{% with product.calc_cost as total %}
+        {% with product.quantity as quantity %}
+        {% with product.product as product %}
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
@@ -24,13 +25,26 @@
         <h5 class="card-title">{{ product.name }}</h5>
         <br/>
         <p class="card-text justified">{{ product.description }}</p>
+        <div class="d-flex justify-content-center small text-warning mb-2">
+          Rating: {% if product.rating == 0 %}Not Rated{% endif %}{% with ''|center:product.rating as range %}
+        {% for _ in range %}
+            <div class="bi-star-fill"></div>
+            {% endfor %}
+            {% endwith %}
+    </div>
+    <!-- Product price-->
+    Category: {{ product.category.categoryName }}<br/>
+    Seller: {{ product.seller.name }}<br/>
+    Stock: {{ product.stock }}<br/>
+
         
-        
-            ${{ product.price }}
-            
-            <br/><br/>
-            Quantity:{{ quantity }}
-            <br/><br/>
+    Price: ${{ product.price }}
+    
+    <br/>
+    Quantity: {{ quantity }}
+    <br/>
+    Total Cost: ${{ total }}
+    <br/><br/>
 
 
             {% if user.is_authenticated %}

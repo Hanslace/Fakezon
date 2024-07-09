@@ -30,6 +30,8 @@
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 
         {% for product in products %}
+        {% with product.calc_cost as total %}
+        {% with product.quantity as quantity %}
         {% with product.product as product %}
             
         <div class="col mb-5">
@@ -43,14 +45,24 @@
                             <h5 class="fw-bolder">{{ product.name }}</h5>
                             <div class="d-flex justify-content-center small text-warning mb-2">
                              
-                                {% with ''|center:product.rating as range %}
+                                Rating: {% if product.rating == 0 %}Not Rated{% endif %}{% with ''|center:product.rating as range %}
                                 {% for _ in range %}
                                     <div class="bi-star-fill"></div>
                                     {% endfor %}
                                     {% endwith %}
                             </div>
                             <!-- Product price-->
-                            ${{ product.price }}
+                            Category: {{ product.category.categoryName }}<br/>
+    Stock: {{ product.stock }}<br/>
+
+        
+    Price: ${{ product.price }}
+    
+    <br/>
+    Quantity: {{ quantity }}
+    <br/>
+    Total Cost: ${{ total }}
+    <br/><br/>
                         </div>
                     </div>
                     <!-- Product actions-->
@@ -60,6 +72,8 @@
                 </div>
             </div>
 
+                {% endwith %}
+                {% endwith %}
                 {% endwith %}
             {% endfor %}
 

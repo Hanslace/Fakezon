@@ -300,8 +300,11 @@ def checkout(request):
 			address = form.cleaned_data['address']
 
 		for item in items:
-			Order.objects.create(product = item.product ,paymentMethod = paymentMethod ,cost = item.calc_cost , customer = request.user, address = address , quantity = item.quantity)
-			item.delete()
+			if item.quantity < item.product.stock :
+				item.product.stock -= item.quantity
+				item.product.sales += item.quantity
+				Order.objects.create(product = item.product ,paymentMethod = paymentMethod ,cost = item.calc_cost , customer = request.user, address = address , quantity = item.quantity)
+				item.delete()
 		
 		messages.success(request, (f"Thanks for shopping with us!!"))
 		return redirect('customer_home')
@@ -314,3 +317,19 @@ def order(request,pk):
 	order = Order.objects.get(orderID=pk)
 
 	return render(request, 'order.html', {'product':order })
+
+@authenticated_customer
+def rate(request , product , quantity):
+	if request.method == 'POST':
+		form = RatingForm(request.POST)
+		if form.is_valid():
+			rating = form.cleaned_data['rating']
+			
+
+		product.rating = round(((rating*quantity) + (product.rating*(product.sales - quantity)))/product.sales)
+		
+		messages.success(request, (f"Thanks for your feedback!!"))
+		return redirect('order' , product.productID)
+	else:
+		form = RatingForm()
+	return render(request, 'rate.html', {'form': form , 'product':product, 'quantity':quantity})

@@ -20,6 +20,10 @@
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         
                 {% for product in products %}
+                {% with product.rating as rating %}
+                {% with product.date as date %}
+                {% with product.cost as cost %}
+                {% with product.quantity as quantity %}
                 {% with product.orderID as ID %}
                 {% with product.product as product %}
                     
@@ -33,15 +37,21 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ product.name }}</h5>
                                     <div class="d-flex justify-content-center small text-warning mb-2">
-                                     
-                                        {% with ''|center:product.rating as range %}
+                                       OrderID: {% ID %}
+                                        Rating: {% with ''|center:rating as range %}
                                         {% for _ in range %}
                                             <div class="bi-star-fill"></div>
                                             {% endfor %}
                                             {% endwith %}
                                     </div>
                                     <!-- Product price-->
-                                    ${{ product.price }}
+                                    Category: {{ product.category.categoryName }}<br/>
+                                    
+                                    Date: ${{ date }}
+                                    <br/>
+                                    Quantity: ${{ quantity }}
+                                     <br/>
+                                    Cost: ${{ cost }}
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -53,6 +63,11 @@
                     </div>
                     {% endwith %}
                     {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                    
                     {% endfor %}
 
 

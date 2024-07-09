@@ -35,6 +35,7 @@ class Profile(models.Model):
     @property
     def total_orders(self):
         return Product.objects.filter(seller = self.user).annotate(total_orders=models.Sum('sales')).aggregate(total=models.Sum('total_orders'))['total']
+    
 class Wishlist(models.Model):
     customer = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
@@ -65,6 +66,9 @@ class Product(models.Model):
     wishlisted = models.ManyToManyField(Wishlist , blank=True)
     sales =  models.PositiveIntegerField(default = 0 )
 
+    def __str__(self) -> str:
+        return str(self.productID)
+
     
 class CartItem(models.Model):
     product = models.ForeignKey(Product , on_delete=models.CASCADE)
@@ -79,6 +83,7 @@ class Order(models.Model):
     orderID = models.AutoField(primary_key=True )
     product = models.ForeignKey(Product , on_delete=models.DO_NOTHING)
     cost = models.PositiveIntegerField(default = 0 )
+    rating = models.IntegerField(choices= ((1, 'Poor') , (2, 'Bad') ,(3, 'OK') ,(4, 'Good') ,(5, 'Amazing') , (0 ,'Not Rated')  ) , default=0)
     customer = models.ForeignKey(  CustomUser, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.datetime.today)
     address = models.CharField(max_length=100 , default= ' ' , blank = True)

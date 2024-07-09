@@ -25,9 +25,24 @@
         <h5 class="card-title">{{ product.name }}</h5>
         <br/>
         <p class="card-text justified">{{ product.description }}</p>
-        
-        
-            ${{ product.price }}
+        <div class="d-flex justify-content-center small text-warning mb-2">
+          Rating: {% if product.rating == 0 %}Not Rated{% endif %}{% with ''|center:product.rating as range %}
+          {% for _ in range %}
+              <div class="bi-star-fill"></div>
+              {% endfor %}
+              {% endwith %}
+      </div>
+      <!-- Product price-->
+      Category: {{ product.category.categoryName }}<br/>
+      Seller: {{ product.seller.name }}<br/>
+      Stock: {{ product.stock }}<br/>
+  
+          
+              Price: ${{ product.price }}
+              
+              <br/>
+              Sales: {{ product.sales }}
+              
             
             <br/><br/>
 <div class="row justify-content-center">

@@ -216,3 +216,7 @@ class OrderForm(forms.Form):
     ])
 	address = forms.CharField(label="",required=True, max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Delivery Address'}))
 	
+class RatingForm(forms.Form):
+	paymentMethod = forms.ChoiceField(label="Rating",required=True,  widget=forms.Select(attrs={'class':'form-control', 'placeholder':'PRate'}) , choices = [
+         ((1, 'Poor') , (2, 'Bad') ,(3, 'OK') ,(4, 'Good') ,(5, 'Amazing')   )
+    ])

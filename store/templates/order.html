@@ -11,8 +11,12 @@
 
 <div class="container">
 <br/>
-{% with product.quantity as quantity %}
-{% with product.product as product %}
+{% with product.date as date %}
+                {% with product.cost as cost %}
+                {% with product.rating as rating %}
+                {% with product.quantity as quantity %}
+                {% with product.orderID as ID %}
+                {% with product.product as product %}
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
@@ -24,14 +28,27 @@
         <h5 class="card-title">{{ product.name }}</h5>
         <br/>
         <p class="card-text justified">{{ product.description }}</p>
-        
-        
-            ${{ product.price }}
-            
+        <div class="d-flex justify-content-center small text-warning mb-2">
+          Rated: {% if rating == 0 %}Not Rated{% endif %}{% with ''|center:rating as range %}
+          {% for _ in range %}
+              <div class="bi-star-fill"></div>
+              {% endfor %}
+              {% endwith %}
+      </div>
+      <!-- Product price-->
+      Category: {{ product.category.categoryName }}<br/>
+      Seller: {{ product.seller.name }}<br/>
+      Stock: {{ product.stock }}<br/>
+  
+          
+              Cost: ${{ product.price }}
+              
+              <br/>
+              Quantity: {{ quantity }}
             <br/><br/>
-            Quantity:{{ quantity }}
-            <br/><br/>
-
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'rate' product quantity %}">Rate Product</a></div>
+                                      </div>
 
     </center>
       </div>
@@ -42,6 +59,9 @@
         	
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+{% endwith %}
+{% endwith %}
+{% endwith %}
 {% endwith %}
 {% endwith %}
 {% endblock %}

@@ -49,15 +49,16 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ product.name }}</h5>
                                     <div class="d-flex justify-content-center small text-warning mb-2">
-                                     
-                                        {% with ''|center:product.rating as range %}
-                                        {% for _ in range %}
-                                            <div class="bi-star-fill"></div>
-                                            {% endfor %}
-                                            {% endwith %}
-                                    </div>
-                                    <!-- Product price-->
-                                    ${{ product.price }}
+                                      Rating: {% if product.rating == 0 %}Not Rated{% endif %}{% with ''|center:product.rating as range %}
+                                      {% for _ in range %}
+                                          <div class="bi-star-fill"></div>
+                                          {% endfor %}
+                                          {% endwith %}
+                                  </div>
+                                  <!-- Product price-->
+                                  Category: {{ product.category.categoryName }}<br/>
+                                  Stock: {{ product.stock }}<br/>
+                                  Price: ${{ product.price }}
                                 </div>
                             </div>
                             <!-- Product actions-->
