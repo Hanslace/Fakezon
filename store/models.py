@@ -93,6 +93,6 @@ class Order(models.Model):
         choices=PAYMENT_METHOD_CHOICES,
         default='Credit Card',
     )
-    quanity = models.PositiveIntegerField(default = 1 )
+    quantity = models.PositiveIntegerField(default = 1 )
 
     
