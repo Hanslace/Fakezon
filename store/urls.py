@@ -29,5 +29,5 @@ urlpatterns = [
     path('cartitem/<int:pk>', views.cartitem, name='cartitem'),
     path('checkout/', views.checkout, name='checkout'),
     path('order/<int:pk>', views.order, name='order'),
-    path('rate/<Product:product>/<int:quantity>' , views.rate , name='rate')
+    path('rate/<int:pk>' , views.rate , name='rate')
 ]

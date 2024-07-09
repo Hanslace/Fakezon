@@ -319,17 +319,20 @@ def order(request,pk):
 	return render(request, 'order.html', {'product':order })
 
 @authenticated_customer
-def rate(request , product , quantity):
+def rate(request , pk ):
+	order = Order.objects.get(orderID=pk)
+	product = order.product
+	quantity = order.quantity
 	if request.method == 'POST':
 		form = RatingForm(request.POST)
 		if form.is_valid():
 			rating = form.cleaned_data['rating']
 			
 
-		product.rating = round(((rating*quantity) + (product.rating*(product.sales - quantity)))/product.sales)
+		product.rating = round(((rating*quantity) + (product.rating*(product.sales - quantity)))/product.sales , 2)
 		
 		messages.success(request, (f"Thanks for your feedback!!"))
-		return redirect('order' , product.productID)
+		return redirect('order' , pk)
 	else:
 		form = RatingForm()
-	return render(request, 'rate.html', {'form': form , 'product':product, 'quantity':quantity})
+	return render(request, 'rate.html', {'form': form , 'ID':pk})

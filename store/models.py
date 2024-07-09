@@ -61,7 +61,7 @@ class Product(models.Model):
     price  = models.DecimalField(default=0 , decimal_places=2, max_digits= 6 )
     description  = models.CharField(max_length=250 , default= ' ' , blank= True , null=True)
     image  = models.ImageField(upload_to='uploads/product/',  blank = True)
-    rating = models.IntegerField(choices= ((1, 'Poor') , (2, 'Bad') ,(3, 'OK') ,(4, 'Good') ,(5, 'Amazing') , (0 ,'Not Rated')  ) , default=0)
+    rating = models.FloatField(choices= ((1, 'Poor') , (2, 'Bad') ,(3, 'OK') ,(4, 'Good') ,(5, 'Amazing') , (0 ,'Not Rated')  ) , default=0)
     stock =  models.PositiveIntegerField( default = 0)
     wishlisted = models.ManyToManyField(Wishlist , blank=True)
     sales =  models.PositiveIntegerField(default = 0 )
@@ -97,7 +97,7 @@ class Order(models.Model):
         max_length=50,
         choices=PAYMENT_METHOD_CHOICES,
         default='Credit Card',
-        
+
     )
     quantity = models.PositiveIntegerField(default = 1 )
 

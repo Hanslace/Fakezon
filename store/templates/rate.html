@@ -17,7 +17,7 @@
         			<div class="col-md-6 offset-md-3">
 
         				<br/><br/>
-<form method="POST" action="{% url 'rate' product quantity%}">
+<form method="POST" action="{% url 'rate' ID %}">
     {% csrf_token %}
     
    <center>{{ form.as_p }}</center> 
