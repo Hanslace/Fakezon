@@ -134,7 +134,9 @@ class ProductForm(forms.ModelForm):
 
 	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=True)
 	description= forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
-	category= forms.CharField()
+	category = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'form-control', 'placeholder':'Category'})
+    )
 	stock = forms.IntegerField(
         label='',
 		required=	False,
@@ -169,8 +171,9 @@ class UpdateProductForm(forms.ModelForm):
 	image = forms.ImageField(label="" , required=True, )
 	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=True)
 	description= forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
-	
-	category= forms.CharField()
+	category = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'form-control', 'placeholder':'Category'})
+    )
 	stock = forms.IntegerField(
         label='',
 		required=	False,
