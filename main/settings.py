@@ -32,8 +32,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'whitenoise.runserver_nostatic',
-    'storages',
-    'boto',
 ]
 
 MIDDLEWARE = [
