@@ -134,3 +134,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+INSTALLED_APPS += [
+    'storages',
+]
+
+# Backblaze B2 configurations
+B2_APP_KEY_ID = '005d921c88525b90000000001'
+B2_APP_KEY = 'fakezon-storagekey'
+B2_BUCKET_NAME = 'fakezon-media-and-static-storage'
+B2_ENDPOINT = 'https://api.backblazeb2.com'
+
+# Settings for django-storages
+DEFAULT_FILE_STORAGE = 'storages.backends.b2.B2Storage'
+STATICFILES_STORAGE = 'storages.backends.b2.B2Storage'
+
+STATIC_URL = f'https://f000.backblazeb2.com/file/{B2_BUCKET_NAME}/static/'
+MEDIA_URL = f'https://f000.backblazeb2.com/file/{B2_BUCKET_NAME}/media/'
