@@ -125,7 +125,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static']
 
 # White noise static stuff
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
@@ -153,10 +153,10 @@ STORAGES = {
     }
 }
 
-AWS_ACCESS_KEY_ID = os.environ['005d921c88525b90000000001']
-AWS_SECRET_ACCESS_KEY = os.environ['fakezon-storagekey']
-AWS_STORAGE_BUCKET_NAME = os.environ['fakezon-media-and-static-storage']
-AWS_S3_REGION_NAME = os.environ['us-east-005']
+AWS_ACCESS_KEY_ID = '005d921c88525b90000000001'
+AWS_SECRET_ACCESS_KEY = 'fakezon-storagekey'
+AWS_STORAGE_BUCKET_NAME = 'fakezon-media-and-static-storage'
+AWS_S3_REGION_NAME = 'us-east-005'
 AWS_S3_ENDPOINT = f's3.{AWS_S3_REGION_NAME}.backblazeb2.com'
 AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_ENDPOINT}'
 AWS_DEFAULT_ACL = 'public-read'
