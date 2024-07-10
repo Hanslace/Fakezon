@@ -6,7 +6,6 @@ from .models import *
 from .forms import   *
 from django.contrib.auth.decorators import login_required
 from .Signal import *
-from django.http import JsonResponse
 from .decoraters import *
 
 

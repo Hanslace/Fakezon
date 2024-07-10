@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'whitenoise.runserver_nostatic',
-    
+    'storages',
+    'boto',
 ]
 
 MIDDLEWARE = [
@@ -136,19 +137,28 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-INSTALLED_APPS += [
-    'storages',
-]
 
-# Backblaze B2 configurations
-B2_APP_KEY_ID = '005d921c88525b90000000001'
-B2_APP_KEY = 'fakezon-storagekey'
-B2_BUCKET_NAME = 'fakezon-media-and-static-storage'
+
 B2_ENDPOINT = 'https://api.backblazeb2.com'
+B2_ACCOUNT_ID = '005d921c88525b90000000001'
+B2_ACCOUNT_KEY = 'fakezon-storagekey'
+B2_BUCKET_NAME = 'fakezon-media-and-static-storage'
 
-# Settings for django-storages
-DEFAULT_FILE_STORAGE = 'storages.backends.b2.B2Storage'
-STATICFILES_STORAGE = 'storages.backends.b2.B2Storage'
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    }
+}
 
-STATIC_URL = f'https://f000.backblazeb2.com/file/{B2_BUCKET_NAME}/static/'
-MEDIA_URL = f'https://f000.backblazeb2.com/file/{B2_BUCKET_NAME}/media/'
+AWS_ACCESS_KEY_ID = os.environ['005d921c88525b90000000001']
+AWS_SECRET_ACCESS_KEY = os.environ['fakezon-storagekey']
+AWS_STORAGE_BUCKET_NAME = os.environ['fakezon-media-and-static-storage']
+AWS_S3_REGION_NAME = os.environ['us-east-005']
+AWS_S3_ENDPOINT = f's3.{AWS_S3_REGION_NAME}.backblazeb2.com'
+AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_ENDPOINT}'
+AWS_DEFAULT_ACL = 'public-read'
+
+AWS_LOCATION = 'media/'
