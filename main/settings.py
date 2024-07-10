@@ -125,7 +125,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static']
 
 # White noise static stuff
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
@@ -138,27 +138,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
-B2_ENDPOINT = 'https://api.backblazeb2.com'
-B2_ACCOUNT_ID = '005d921c88525b90000000001'
-B2_ACCOUNT_KEY = 'fakezon-storagekey'
-B2_BUCKET_NAME = 'fakezon-media-and-static-storage'
-
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    }
-}
-
-AWS_ACCESS_KEY_ID = '005d921c88525b90000000001'
-AWS_SECRET_ACCESS_KEY = 'fakezon-storagekey'
-AWS_STORAGE_BUCKET_NAME = 'fakezon-media-and-static-storage'
-AWS_S3_REGION_NAME = 'us-east-005'
-AWS_S3_ENDPOINT = f's3.{AWS_S3_REGION_NAME}.backblazeb2.com'
-AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_ENDPOINT}'
-AWS_DEFAULT_ACL = 'public-read'
-
-AWS_LOCATION = 'media/'
