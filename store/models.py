@@ -81,7 +81,7 @@ class CartItem(models.Model):
     
 class Order(models.Model):
     orderID = models.AutoField(primary_key=True )
-    product = models.ForeignKey(Product , on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product , on_delete=models.SET_DEFAULT , default=Product.objects.get(productID = 0))
     cost = models.PositiveIntegerField(default = 0 )
     rating = models.IntegerField(choices= ((1, 'Poor') , (2, 'Bad') ,(3, 'OK') ,(4, 'Good') ,(5, 'Amazing') , (0 ,'Not Rated')  ) , default=0)
     customer = models.ForeignKey(  CustomUser, on_delete=models.CASCADE)
