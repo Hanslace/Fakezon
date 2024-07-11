@@ -56,7 +56,7 @@ def zero_check(val):
 class Product(models.Model):
     productID = models.AutoField(primary_key=True )
     seller =  models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category , on_delete=models.CASCADE , blank = True  )
+    category = models.ForeignKey(Category , on_delete=models.CASCADE  )
     name  = models.CharField(max_length=100)
     price  = models.DecimalField(default=0 , decimal_places=2, max_digits= 6 )
     description  = models.CharField(max_length=250 , default= ' ' , blank= True , null=True)
@@ -81,7 +81,7 @@ class CartItem(models.Model):
     
 class Order(models.Model):
     orderID = models.AutoField(primary_key=True )
-    product = models.ForeignKey(Product , on_delete=models.SET_DEFAULT , default=Product.objects.get(productID = 0))
+    product = models.ForeignKey(Product , on_delete=models.SET_NULL , null=True)
     cost = models.PositiveIntegerField(default = 0 )
     rating = models.IntegerField(choices= ((1, 'Poor') , (2, 'Bad') ,(3, 'OK') ,(4, 'Good') ,(5, 'Amazing') , (0 ,'Not Rated')  ) , default=0)
     customer = models.ForeignKey(  CustomUser, on_delete=models.CASCADE)
