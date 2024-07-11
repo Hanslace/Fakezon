@@ -60,7 +60,7 @@ class Product(models.Model):
     name  = models.CharField(max_length=100)
     price  = models.DecimalField(default=0 , decimal_places=2, max_digits= 6 )
     description  = models.CharField(max_length=250 , default= ' ' , blank= True , null=True)
-    image  = models.ImageField(upload_to='uploads/product/',  blank = True)
+    image  = models.URLField(  blank = True , default='#')
     rating = models.FloatField(choices= ((1, 'Poor') , (2, 'Bad') ,(3, 'OK') ,(4, 'Good') ,(5, 'Amazing') , (0 ,'Not Rated')  ) , default=0)
     stock =  models.PositiveIntegerField( default = 0)
     wishlisted = models.ManyToManyField(Wishlist , blank=True)
@@ -68,7 +68,6 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return str(self.productID)
-
     
 class CartItem(models.Model):
     product = models.ForeignKey(Product , on_delete=models.CASCADE)
