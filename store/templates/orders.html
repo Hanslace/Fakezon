@@ -37,7 +37,7 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ product.name }}</h5>
                                     <div class="d-flex justify-content-center small text-warning mb-2">
-                                       OrderID: {% ID %}
+                                       OrderID: {{ ID }}
                                         Rating: {% with ''|center:rating as range %}
                                         {% for _ in range %}
                                             <div class="bi-star-fill"></div>
