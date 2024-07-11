@@ -214,7 +214,7 @@ def update_product(request, pk ):
 		product_form.save()
 
 
-		messages.success(request, f"Product: {product} Has Been Updated!!")
+		messages.success(request, f"Product: {product.name} Has Been Updated!!")
 		return redirect('seller_home')
 	return render(request, "update_product.html", {'product_form':product_form , 'product':product})
 
