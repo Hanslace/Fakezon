@@ -165,7 +165,7 @@ class ProductForm(forms.ModelForm):
 		return product
 	
 class UpdateProductForm(forms.ModelForm):
-	image = forms.ImageField(label="" , required=True, )
+	image = forms.ImageField(label="" , required=True )
 	name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}), required=True)
 	description= forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description'}), required=False)
 	stock = forms.IntegerField(
