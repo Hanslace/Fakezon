@@ -16,8 +16,8 @@ SECRET_KEY = 'django-insecure-#gna$ue8!*q8+n!@=0&&lnqo24ipe__mk5c-tbutdbic_&7zu5
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['fakezon-production.up.railway.app' ,'https://fakezon-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS =  ['https://fakezon-production.up.railway.app']
+ALLOWED_HOSTS = ['.vercel.app', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
 
 AUTH_USER_MODEL = 'store.CustomUser'
 
@@ -73,14 +73,15 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD':DB_PASSWORD_YO ,
-        'HOST':'monorail.proxy.rlwy.net',
-        'PORT' :'26465',
+        'NAME': 'neondb',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_5oZiENYMx9Az',
+        'HOST': 'ep-nameless-pine-a160d5op-pooler.ap-southeast-1.aws.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
