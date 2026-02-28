@@ -6,7 +6,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
+DB_PASSWORD_YO = "npg_5oZiENYMx9Az"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'neondb',
         'USER': 'neondb_owner',
-        'PASSWORD': 'npg_5oZiENYMx9Az',
+        'PASSWORD': DB_PASSWORD_YO,
         'HOST': 'ep-nameless-pine-a160d5op-pooler.ap-southeast-1.aws.neon.tech',
         'PORT': '5432',
         'OPTIONS': {
